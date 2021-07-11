@@ -5,6 +5,7 @@ import styled from 'styled-components/native';
 import Constants from 'expo-constants';
 import _ from 'lodash';
 import AsyncStorage from '@react-native-async-storage/async-storage';//Async : 비동기
+import produce from 'immer';
 // import { json } from 'express';//Cannot read property 'prototype' of undefined 오류 원인 : https://velog.io/@juho00ng/TypeError-Cannot-read-property-prototype-of-undefined
 
 /*
@@ -104,8 +105,13 @@ export default function App() {
           {list.map(item=>{
             return(
               <ToDoItem key={item.id}/*정렬기준용 내부데이터 */>
-                <Check>
-                  <CheckIcon>{item.done ? '✅' : '☐'}</CheckIcon>
+                <Check onPress={()=>{
+                  store(produce(list, draft=>{//원본과 초안
+                    const index = list.indexOf(item);//내가 클릭한 것이 몇 번째 아이템인가 확인
+                    draft[index].done = !list[index].done;//기존 것과 반대값
+                  }))
+                }} >
+                  <CheckIcon>{item.done ? '☑' : '☐'}</CheckIcon>
                 </Check>
                 <ToDoItemText>{item.todo}</ToDoItemText>
                 <ToDoItemButton title="삭제" 
