@@ -4,6 +4,7 @@ import Contents from '../components/Contents';
 import Sutton from '../components/Sutton';
 import styled from 'styled-components/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import _ from 'lodash'
 
 const ListItem = styled.TouchableOpacity`
     width:100%;
@@ -39,10 +40,10 @@ function List({navigation}){
     return(
         <Container>
             <Contents>
-                {list.map(item=>{
+                { _.sortBy(list, 'date').map(item=>{//출력할때 date를 기준으로 정렬
                     return(
                         <ListItem key={item.data} onPress={()=>{
-                            navigation.navigate("Detail")//네비게이션에서 써야 하는 함수세트도 다 넘겨줌
+                            navigation.navigate("Detail", {date:item.date})//네비게이션에서 써야 하는 함수세트도 다 넘겨줌
                         }} >
                             <Label>{item.date}</Label>
                         </ListItem>
