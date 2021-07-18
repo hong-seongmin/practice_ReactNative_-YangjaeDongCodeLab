@@ -28,7 +28,7 @@ const Back = styled.Button`
 `;
 
 function MovieDetail(props){
-    const  {info, setInfo} = React.useState(null);//기본값 null
+    const  [info, setInfo] = React.useState(null);//기본값 null
     React.useEffect(()=>{
         let url = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=dd7321fa737bfe8ec7b69d7695a8aff1'
         url += "&movieCd" + props.route.params.movieCd//기본 요청 URL + key + movieCd
