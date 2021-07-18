@@ -55,7 +55,7 @@ function BoxOffice(props){//영화진흥위원회 API : http://www.kobis.or.kr/k
             <Contents>
                 <Title>박스 오피스</Title>
                 {list.length === 0 &&(//리스트가 0개이면(API에서 정보 받아오는 동안) 로딩 그림 띄움
-                    <ActivityIndicator/>
+                    <ActivityIndicator size="large" color="#00ff00" />
                 )}
                 { list.map(item=>(
                     <ListItem key={item.movieCd} >
