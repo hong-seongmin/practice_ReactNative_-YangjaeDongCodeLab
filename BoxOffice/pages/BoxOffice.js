@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 import axios from 'axios';
 
 
+
 const Container = styled.SafeAreaView`
     flex:1; 
     padding:24px;
@@ -58,7 +59,9 @@ function BoxOffice(props){//영화진흥위원회 API : http://www.kobis.or.kr/k
                     <ActivityIndicator size="large" color="#00ff00" />
                 )}
                 { list.map(item=>(
-                    <ListItem key={item.movieCd} >
+                    <ListItem key={item.movieCd} onPress={()=>{
+                        props.navigation.navigate('MovieDetail', {MovieCd:item.MovieCd})// props로 전달된 navigation 객체 안에 navigate를 하는 데 MovieDetail로 이동하고 movieCd값을 조회할 때 item.movieCd참조
+                    }} >
                         <Rank>{item.rank}</Rank>
                         <MovieName>{item.movieNm}</MovieName>
                     </ListItem>
