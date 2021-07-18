@@ -1,4 +1,5 @@
 import React from 'react';
+import { ActivityIndicator } from 'react-native'
 import styled from 'styled-components/native';
 import axios from 'axios';
 
@@ -8,9 +9,14 @@ const Container = styled.SafeAreaView`
     padding:24px;
 `;
 
+const Contents = styled.ScrollView`
+    flex:1;
+`;
+
 const Title = styled.Text`
     font-size:24px;
     font-weight:bold;
+    margin:12px;
 `;
 
 
@@ -33,7 +39,7 @@ const MovieName = styled.Text`
     font-weight:bold;
 `;
 
-function BoxOffice(props){
+function BoxOffice(props){//영화진흥위원회 API : http://www.kobis.or.kr/kobisopenapi/homepg/main/main.do
     const [list, setList] = React.useState([]);
     React.useEffect(()=>{//화면에 나타나는 순간에 데이터 읽음
         axios.get('http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=dd7321fa737bfe8ec7b69d7695a8aff1&targetDt=20210101')//ajax 비동기 자바스크립트 XML
@@ -46,14 +52,18 @@ function BoxOffice(props){
     }, []);
     return(
         <Container>
-            <Title>박스 오피스</Title>
-            {list.map(item=>(
-                <ListItem key={item.movieCd} >
-                    <Rank>{item.rank}</Rank>
-                    <MovieName>{item.movieNm}</MovieName>
-                </ListItem>
-            ))}
-
+            <Contents>
+                <Title>박스 오피스</Title>
+                {list.length === 0 &&(//리스트가 0개이면(API에서 정보 받아오는 동안) 로딩 그림 띄움
+                    <ActivityIndicator/>
+                )}
+                { list.map(item=>(
+                    <ListItem key={item.movieCd} >
+                        <Rank>{item.rank}</Rank>
+                        <MovieName>{item.movieNm}</MovieName>
+                    </ListItem>
+                )) }
+            </Contents>
         </Container>
     )
 }
