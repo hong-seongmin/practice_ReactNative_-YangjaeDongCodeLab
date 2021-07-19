@@ -43,7 +43,7 @@ const MovieName = styled.Text`
 function BoxOffice(props){//영화진흥위원회 API : http://www.kobis.or.kr/kobisopenapi/homepg/main/main.do
     const [list, setList] = React.useState([]);
     React.useEffect(()=>{//화면에 나타나는 순간에 데이터 읽음
-        axios.get('http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=dd7321fa737bfe8ec7b69d7695a8aff1&targetDt=20210101')//ajax 비동기 자바스크립트 XML
+        axios.get('http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=dd7321fa737bfe8ec7b69d7695a8aff1&targetDt=20201112')//ajax 비동기 자바스크립트 XML
             .then(response=>{
                 setList(response.data.boxOfficeResult.dailyBoxOfficeList);//데이터가 json으로 온 것이라 객체로 인식되기 때문에 json 접근하듯이 하면 됨
             })//완료되는 시점

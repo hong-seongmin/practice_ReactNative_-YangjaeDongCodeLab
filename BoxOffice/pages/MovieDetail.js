@@ -30,8 +30,8 @@ const Back = styled.Button`
 function MovieDetail(props){
     const  [info, setInfo] = React.useState(null);//기본값 null
     React.useEffect(()=>{
-        let url = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=dd7321fa737bfe8ec7b69d7695a8aff1'
-        url += "&movieCd" + props.route.params.movieCd//기본 요청 URL + key + movieCd
+        let url = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=dd7321fa737bfe8ec7b69d7695a8aff1&movieCd=20200701';
+        // url += "&movieCd=" + props.route.params.movieCd;//기본 요청 URL + key + movieCd
         axios.get(url)
             .then(response=>{
                 setInfo(response.data.movieInfoResult.movieInfo);
@@ -40,6 +40,7 @@ function MovieDetail(props){
                 alert(error.message);
             })
     }, [])
+    let aaa = props.route.params.movieCd
     return(
         <Container>
             <Contents>
@@ -47,8 +48,13 @@ function MovieDetail(props){
                     <ActivityIndicator size={'large'} color="#00ff00" />
                 ) : (
                     <>
-                        <Title>영화제목</Title>
-                        <Description>설명</Description>
+                        <Title>{info.movieNm}</Title>
+                        <Description>제작년도 : {info.prdtYear}년</Description>
+                        <Description>개봉년도 : {info.openDt}</Description>
+                        <Description>상영시간 : {info.showTm}</Description>
+                        <Description>제작년도 : {info.prdtYear}</Description>
+                        <Description>제작년도 : {aaa}</Description>
+                        <Description>data: ${JSON.stringify(info)}</Description>
                     </>
                 )}
 
